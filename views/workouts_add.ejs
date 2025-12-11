@@ -1,0 +1,40 @@
+<%- include('partials/header') %>
+
+<h2>Add Workout</h2>
+
+<% if (flash) { %>
+  <div class="flash <%= flash.type %>"><%= flash.message %></div>
+<% } %>
+
+<form action="/workouts/add" method="POST" class="form">
+
+  <label for="workout_date">Date</label>
+  <input type="date" name="workout_date" required>
+
+  <label for="workout_type">Workout Type</label>
+  <select name="workout_type" required>
+    <option value="">Select one</option>
+    <option>Run</option>
+    <option>Gym</option>
+    <option>Yoga</option>
+    <option>Cycling</option>
+    <option>Swimming</option>
+  </select>
+
+  <label for="duration_minutes">Duration (minutes)</label>
+  <input type="number" name="duration_minutes" min="1" required>
+
+  <label for="intensity">Intensity</label>
+  <select name="intensity" required>
+    <option value="low">Low</option>
+    <option value="medium">Medium</option>
+    <option value="high">High</option>
+  </select>
+
+  <label for="notes">Notes (optional)</label>
+  <textarea name="notes"></textarea>
+
+  <button type="submit" class="btn">Save Workout</button>
+</form>
+
+<%- include('partials/footer') %>

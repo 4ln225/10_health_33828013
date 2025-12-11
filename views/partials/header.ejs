@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= title %> | PulsePro</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+<header>
+  <h1>PulsePro</h1>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+  
+    <% if (!currentUser) { %>
+      <a href="/login">Login</a>
+      <a href="/register">Register</a>
+    <% } %>
+  
+    <% if (currentUser) { %>
+      <a href="/workouts">My Workouts</a>
+      <a href="/workouts/add">Add Workout</a>
+      <a href="/workouts/search">Search</a>
+      <a href="/goals">Goals</a>
+      <a href="/logout">Logout</a>
+    <% } %>
+  </nav>
+  
+  
+</header>
+
+<main>

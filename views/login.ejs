@@ -1,0 +1,21 @@
+<%- include('partials/header') %>
+
+<h2>Login</h2>
+
+<% if (flash) { %>
+  <div class="flash <%= flash.type %>"><%= flash.message %></div>
+<% } %>
+
+<form action="/login" method="POST" class="form">
+  <label>Username</label>
+  <input type="text" name="username" required>
+
+  <label>Password</label>
+  <input type="password" name="password" required>
+
+  <button type="submit" class="btn">Login</button>
+</form>
+
+<p>Don't have an account? <a href="/register">Register</a></p>
+
+<%- include('partials/footer') %>

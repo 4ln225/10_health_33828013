@@ -1,0 +1,33 @@
+<%- include('partials/header') %>
+
+<h2>Edit Workout</h2>
+
+<form action="/workouts/edit/<%= workout.id %>" method="POST" class="form-box">
+  
+  <label>Date:</label>
+  <input type="date" name="workout_date" value="<%= workout.workout_date.toISOString().split('T')[0] %>" required>
+
+  <label>Type:</label>
+  <select name="workout_type" required>
+    <option value="Run" <%= workout.workout_type === "Run" ? "selected" : "" %>>Run</option>
+    <option value="Gym" <%= workout.workout_type === "Gym" ? "selected" : "" %>>Gym</option>
+    <option value="Swimming" <%= workout.workout_type === "Swimming" ? "selected" : "" %>>Swimming</option>
+  </select>
+
+  <label>Duration (minutes):</label>
+  <input type="number" name="duration_minutes" value="<%= workout.duration_minutes %>" required>
+
+  <label>Intensity:</label>
+  <select name="intensity" required>
+    <option value="low" <%= workout.intensity === "low" ? "selected" : "" %>>Low</option>
+    <option value="medium" <%= workout.intensity === "medium" ? "selected" : "" %>>Medium</option>
+    <option value="high" <%= workout.intensity === "high" ? "selected" : "" %>>High</option>
+  </select>
+
+  <label>Notes:</label>
+  <textarea name="notes"><%= workout.notes %></textarea>
+
+  <button class="btn">Save Changes</button>
+</form>
+
+<%- include('partials/footer') %>

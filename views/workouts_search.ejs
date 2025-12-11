@@ -1,0 +1,58 @@
+<%- include('partials/header') %>
+
+<h2>Search Workouts</h2>
+
+<form action="/workouts/search" method="POST" class="form">
+
+  <label>Keyword (notes)</label>
+  <input type="text" name="keyword" placeholder="Search notes...">
+
+  <label>Workout Type</label>
+  <select name="workout_type">
+    <option value="any">Any</option>
+    <option>Run</option>
+    <option>Gym</option>
+    <option>Yoga</option>
+    <option>Cycling</option>
+    <option>Swimming</option>
+  </select>
+
+  <label>Start Date</label>
+  <input type="date" name="start_date">
+
+  <label>End Date</label>
+  <input type="date" name="end_date">
+
+  <button type="submit" class="btn">Search</button>
+</form>
+
+<hr>
+
+<h3>Results</h3>
+
+<% if (results && results.length > 0) { %>
+  <table class="workout-table">
+    <tr>
+      <th>Date</th>
+      <th>Type</th>
+      <th>Duration</th>
+      <th>Intensity</th>
+      <th>Notes</th>
+    </tr>
+
+    <% results.forEach(w => { %>
+      <tr>
+        <td><%= w.workout_date.toISOString().split('T')[0] %></td>
+        <td><%= w.workout_type %></td>
+        <td><%= w.duration_minutes %> mins</td>
+        <td><%= w.intensity %></td>
+        <td><%= w.notes || "—" %></td>
+      </tr>
+    <% }) %>
+  </table>
+
+<% } else if (results) { %>
+  <p>No matching workouts found.</p>
+<% } %>
+
+<%- include('partials/footer') %>
