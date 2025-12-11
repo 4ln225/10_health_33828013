@@ -50,7 +50,8 @@ app.use((req, res) => {
 });
 
 // start server
-const PORT = 8000;
+const PORT = process.env.PORT || 58398;
+
 app.listen(PORT, () => {
   console.log(`PulsePro running on http://localhost:${PORT}`);
 });
