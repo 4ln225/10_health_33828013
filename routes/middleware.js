@@ -1,6 +1,6 @@
 function ensureLoggedIn(req, res, next) {
     if (!req.session.user) {
-      req.session.flash = { type: "error", message: "You must be logged in." };
+      req.session.flash = { type: 'error', message: 'Please log in first.' };
       return res.redirect('/login');
     }
     next();

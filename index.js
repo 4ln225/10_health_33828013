@@ -1,54 +1,49 @@
 const express = require('express');
 const session = require('express-session');
 const path = require('path');
-const mysqlStore = require('express-mysql-session')(session);
-require('dotenv').config();
 
-const mainRoutes = require('./routes/main');
 const authRoutes = require('./routes/auth');
+const mainRoutes = require('./routes/main');
 const workoutRoutes = require('./routes/workouts');
-const goalsRoutes = require('./routes/goals');
+const goalRoutes = require('./routes/goals');
 
-// Create app
 const app = express();
 
 // Middleware
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Sessions
-const sessionStore = new mysqlStore({
-    host: 'localhost',
-    user: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_NAME
+app.use(session({
+  secret: 'pulsepro_secret_key',
+  resave: false,
+  saveUninitialized: false
+}));
+
+// Flash + user
+app.use((req, res, next) => {
+  res.locals.flash = req.session.flash;
+  delete req.session.flash;
+  res.locals.currentUser = req.session.user;
+  next();
 });
-
-app.use(
-    session({
-        secret: 'pulseprosecret',
-        resave: false,
-        saveUninitialized: false,
-        store: sessionStore
-    })
-);
-
-// Static files
-app.use(express.static(path.join(__dirname, 'public')));
 
 // View engine
 app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
 
 // Routes
 app.use('/', mainRoutes);
 app.use('/', authRoutes);
 app.use('/workouts', workoutRoutes);
-app.use('/goals', goalsRoutes);
+app.use('/goals', goalRoutes);
 
-// Start server on VM-specific WWW port
-const PORT = 8398;
-app.listen(PORT, () => {
-    console.log(`PulsePro running on: http://localhost:${PORT}`);
+// 404
+app.use((req, res) => {
+  res.status(404).render('404', { title: "404" });
+});
+
+// Server
+app.listen(8000, () => {
+  console.log('PulsePro running on http://localhost:8000');
 });
 

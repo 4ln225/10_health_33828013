@@ -2,72 +2,57 @@
 
 <h2>My Workouts</h2>
 
-<% if (flash) { %>
-  <div class="flash <%= flash.type %>"><%= flash.message %></div>
-<% } %>
-
 <h3>Workouts by Type</h3>
 
-<div style="width: 300px; height: 300px; margin: 0 auto;">
+<div style="max-width:400px;margin:auto;">
   <canvas id="workoutChart"></canvas>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 <script>
   const labels = <%- JSON.stringify(labels) %>;
   const values = <%- JSON.stringify(values) %>;
 
   if (labels.length > 0) {
-    const ctx = document.getElementById('workoutChart');
-    new Chart(ctx, {
+    new Chart(document.getElementById('workoutChart'), {
       type: 'pie',
       data: {
-        labels: labels,
+        labels,
         datasets: [{
           data: values,
-          backgroundColor: ['green', 'black', 'blue'],
+          backgroundColor: ['#f87171', '#60a5fa', '#facc15']
         }]
-      },
-      options: { responsive: false }
+      }
     });
   }
 </script>
-
 
 <hr>
 
 <a href="/workouts/add" class="btn">Add New Workout</a>
 
 <table class="workout-table">
-  <tr>
-    <th>Date</th>
-    <th>Type</th>
-    <th>Duration</th>
-    <th>Intensity</th>
-    <th>Notes</th>
-    <th>Actions</th>
-  </tr>
+<tr>
+  <th>Date</th><th>Type</th><th>Duration</th><th>Intensity</th><th>Notes</th><th>Actions</th>
+</tr>
 
-  <% workouts.forEach(w => { %>
-    <tr>
-      <td><%= w.workout_date.toISOString().split('T')[0] %></td>
-      <td><%= w.workout_type %></td>
-      <td><%= w.duration_minutes %> mins</td>
-      <td><%= w.intensity %></td>
-      <td><%= w.notes || "—" %></td>
-      <td>
-        <a href="/workouts/edit/<%= w.id %>" class="btn-small">Edit</a>
-
-        <form action="/workouts/delete/<%= w.id %>" method="POST" style="display:inline;">
-          <button class="btn-small danger" onclick="return confirm('Delete this workout?');">
-            Delete
-          </button>
-        </form>
-      </td>
-    </tr>
-  <% }) %>
+<% workouts.forEach(w => { %>
+<tr>
+  <td><%= w.workout_date.toISOString().split('T')[0] %></td>
+  <td><%= w.workout_type %></td>
+  <td><%= w.duration_minutes %> mins</td>
+  <td><%= w.intensity %></td>
+  <td><%= w.notes || '—' %></td>
+  <td>
+    <a href="/workouts/edit/<%= w.id %>">Edit</a>
+    <form action="/workouts/delete/<%= w.id %>" method="POST" style="display:inline;">
+      <button type="submit">Delete</button>
+    </form>
+  </td>
+</tr>
+<% }) %>
 </table>
 
 <%- include('partials/footer') %>
+
 
