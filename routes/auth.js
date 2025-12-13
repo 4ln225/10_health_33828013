@@ -4,10 +4,12 @@ const pool = require('../config/db');
 
 const router = express.Router();
 
+// LOGIN FORM
 router.get('/login', (req, res) => {
   res.render('login', { title: 'Login' });
 });
 
+// LOGIN SUBMIT
 router.post('/login', async (req, res) => {
   const { username, password } = req.body;
 
@@ -33,10 +35,12 @@ router.post('/login', async (req, res) => {
   res.redirect('/usr/398/workouts');
 });
 
+// REGISTER FORM
 router.get('/register', (req, res) => {
   res.render('register', { title: 'Register' });
 });
 
+// REGISTER SUBMIT
 router.post('/register', async (req, res) => {
   const { username, password } = req.body;
   const hash = await bcrypt.hash(password, 10);
@@ -49,12 +53,14 @@ router.post('/register', async (req, res) => {
 
     req.session.flash = { type: 'success', message: 'Account created. Please log in.' };
     res.redirect('/usr/398/login');
-  } catch (err) {
+
+  } catch {
     req.session.flash = { type: 'error', message: 'Username already exists.' };
     res.redirect('/usr/398/register');
   }
 });
 
+// LOGOUT
 router.get('/logout', (req, res) => {
   req.session.destroy(() => {
     res.redirect('/usr/398/login');
