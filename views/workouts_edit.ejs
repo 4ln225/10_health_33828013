@@ -2,20 +2,32 @@
 
 <h2>Edit Workout</h2>
 
-<form action="/workouts/edit/<%= workout.id %>" method="POST" class="form-box">
+<form action="/usr/398/workouts/edit/<%= workout.id %>" method="POST" class="form-box">
   
   <label>Date:</label>
-  <input type="date" name="workout_date" value="<%= workout.workout_date.toISOString().split('T')[0] %>" required>
+  <input
+    type="date"
+    name="workout_date"
+    value="<%= workout.workout_date.toISOString().split('T')[0] %>"
+    required
+  >
 
   <label>Type:</label>
   <select name="workout_type" required>
     <option value="Run" <%= workout.workout_type === "Run" ? "selected" : "" %>>Run</option>
     <option value="Gym" <%= workout.workout_type === "Gym" ? "selected" : "" %>>Gym</option>
+    <option value="Yoga" <%= workout.workout_type === "Yoga" ? "selected" : "" %>>Yoga</option>
+    <option value="Cycling" <%= workout.workout_type === "Cycling" ? "selected" : "" %>>Cycling</option>
     <option value="Swimming" <%= workout.workout_type === "Swimming" ? "selected" : "" %>>Swimming</option>
   </select>
 
   <label>Duration (minutes):</label>
-  <input type="number" name="duration_minutes" value="<%= workout.duration_minutes %>" required>
+  <input
+    type="number"
+    name="duration_minutes"
+    value="<%= workout.duration_minutes %>"
+    required
+  >
 
   <label>Intensity:</label>
   <select name="intensity" required>
@@ -27,7 +39,8 @@
   <label>Notes:</label>
   <textarea name="notes"><%= workout.notes %></textarea>
 
-  <button class="btn">Save Changes</button>
+  <button type="submit" class="btn">Save Changes</button>
 </form>
 
 <%- include('partials/footer') %>
+
