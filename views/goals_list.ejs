@@ -2,10 +2,6 @@
 
 <h2>My Goals</h2>
 
-<% if (flash) { %>
-  <div class="flash <%= flash.type %>"><%= flash.message %></div>
-<% } %>
-
 <a href="/goals/add" class="btn">Add New Goal</a>
 
 <table class="workout-table">
@@ -21,9 +17,12 @@
       <td><%= g.title %></td>
       <td><%= g.target_value %> <%= g.unit %></td>
       <td><%= g.period %></td>
-      <td><%= g.created_at.toISOString().split("T")[0] %></td>
+      <td>
+        <%= g.created_at ? new Date(g.created_at).toISOString().split("T")[0] : "—" %>
+      </td>
     </tr>
   <% }) %>
 </table>
 
 <%- include('partials/footer') %>
+
