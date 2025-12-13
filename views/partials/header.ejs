@@ -1,16 +1,27 @@
-<link rel="stylesheet" href="/usr/398/css/styles.css">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title><%= title %> | PulsePro</title>
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
 
+<header>
+  <h1>PulsePro</h1>
 
-<nav>
-  <a href="/">Home</a>
-  <a href="/about">About</a>
+  <nav>
+    <a href="/">Home</a>
+    <a href="/about">About</a>
 
-  <% if (!currentUser) { %>
-    <a href="/login">Login</a>
-    <a href="/register">Register</a>
-  <% } else { %>
-    <a href="/workouts">My Workouts</a>
-    <a href="/logout">Logout</a>
-  <% } %>
-</nav>
+    <% if (!currentUser) { %>
+      <a href="/login">Login</a>
+      <a href="/register">Register</a>
+    <% } else { %>
+      <a href="/workouts">My Workouts</a>
+      <a href="/logout">Logout</a>
+    <% } %>
+  </nav>
+</header>
 
+<main>
