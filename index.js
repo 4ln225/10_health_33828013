@@ -9,18 +9,18 @@ const goalRoutes = require('./routes/goals');
 
 const app = express();
 
-// Middleware
+
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Sessions
+// aessions
 app.use(session({
   secret: 'pulsepro_secret_key',
   resave: false,
   saveUninitialized: false
 }));
 
-// Flash + user
+// flahs
 app.use((req, res, next) => {
   res.locals.flash = req.session.flash;
   delete req.session.flash;
@@ -31,11 +31,11 @@ app.use((req, res, next) => {
 // View engine
 app.set('view engine', 'ejs');
 
-// Routes
-app.use('/', mainRoutes);
-app.use('/', authRoutes);
-app.use('/workouts', workoutRoutes);
-app.use('/goals', goalRoutes);
+//routes
+app.use('/usr/398', mainRoutes);
+app.use('/usr/398', authRoutes);
+app.use('/usr/398/workouts', workoutRoutes);
+app.use('/usr/398/goals', goalRoutes);
 
 // 404
 app.use((req, res) => {
@@ -46,4 +46,3 @@ app.use((req, res) => {
 app.listen(8000, () => {
   console.log('PulsePro running on http://localhost:8000');
 });
-
