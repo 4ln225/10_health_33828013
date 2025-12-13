@@ -4,13 +4,13 @@ const pool = require('../config/db');
 
 const router = express.Router();
 
-
-// login form
+/* =====================
+   LOGIN
+===================== */
 
 router.get('/login', (req, res) => {
   res.render('login', { title: 'Login' });
 });
-
 
 router.post('/login', async (req, res) => {
   const { username, password } = req.body;
@@ -25,7 +25,7 @@ router.post('/login', async (req, res) => {
       type: 'error',
       message: 'Invalid username or password.'
     };
-    return res.redirect('login');
+    return res.redirect('/usr/398/login');
   }
 
   const user = rows[0];
@@ -36,20 +36,24 @@ router.post('/login', async (req, res) => {
       type: 'error',
       message: 'Invalid username or password.'
     };
-    return res.redirect('login');
+    return res.redirect('/usr/398/login');
   }
 
-  req.session.user = { id: user.id, username: user.username };
-  res.redirect('workouts');
+  req.session.user = {
+    id: user.id,
+    username: user.username
+  };
+
+  res.redirect('/usr/398/workouts');
 });
 
-
-// Rgister form
+/* =====================
+   REGISTER
+===================== */
 
 router.get('/register', (req, res) => {
   res.render('register', { title: 'Register' });
 });
-
 
 router.post('/register', async (req, res) => {
   const { username, password } = req.body;
@@ -66,23 +70,26 @@ router.post('/register', async (req, res) => {
       message: 'Account created. Please log in.'
     };
 
-    res.redirect('login');
+    res.redirect('/usr/398/login');
   } catch (err) {
     req.session.flash = {
       type: 'error',
       message: 'Username already exists.'
     };
-    res.redirect('register');
+    res.redirect('/usr/398/register');
   }
 });
 
-//logout
+/* =====================
+   LOGOUT
+===================== */
 
 router.get('/logout', (req, res) => {
   req.session.destroy(() => {
-    res.redirect('login');
+    res.redirect('/usr/398/login');
   });
 });
 
 module.exports = router;
+
 
