@@ -29,6 +29,35 @@
 
 <hr>
 
+<h3>Search Workouts</h3>
+
+<form action="/workouts/search" method="POST" class="form">
+
+  <label>Keyword (notes)</label>
+  <input type="text" name="keyword" placeholder="Search notes...">
+
+  <label>Workout Type</label>
+  <select name="workout_type">
+    <option value="any">Any</option>
+    <option>Run</option>
+    <option>Gym</option>
+    <option>Yoga</option>
+    <option>Cycling</option>
+    <option>Swimming</option>
+  </select>
+
+  <label>Start Date</label>
+  <input type="date" name="start_date">
+
+  <label>End Date</label>
+  <input type="date" name="end_date">
+
+  <button type="submit" class="btn">Search</button>
+</form>
+
+
+<hr>
+
 <a href="/workouts/add" class="btn">Add New Workout</a>
 
 <table class="workout-table">
