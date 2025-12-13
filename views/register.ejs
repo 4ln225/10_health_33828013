@@ -6,7 +6,7 @@
   <div class="flash <%= flash.type %>"><%= flash.message %></div>
 <% } %>
 
-<form action="/usr/398/register" method="POST" class="form">
+<form action="/register" method="POST" class="form">
   <label>Username</label>
   <input type="text" name="username" required>
 
@@ -18,7 +18,7 @@
 
 <p>
   Already have an account?
-  <a href="/usr/398/login">Login</a>
+  <a href="/login">Login</a>
 </p>
 
 <%- include('partials/footer') %>
