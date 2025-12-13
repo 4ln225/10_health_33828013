@@ -29,7 +29,7 @@
 
 <hr>
 
-<a href="/usr/398/workouts/add" class="btn">Add New Workout</a>
+<a href="/workouts/add" class="btn">Add New Workout</a>
 
 <table class="workout-table">
   <tr>
@@ -49,9 +49,9 @@
       <td><%= w.intensity %></td>
       <td><%= w.notes || '—' %></td>
       <td>
-        <a href="/usr/398/workouts/edit/<%= w.id %>">Edit</a>
+        <a href="/workouts/edit/<%= w.id %>">Edit</a>
         <form
-          action="/usr/398/workouts/delete/<%= w.id %>"
+          action="/workouts/delete/<%= w.id %>"
           method="POST"
           style="display:inline;"
         >
