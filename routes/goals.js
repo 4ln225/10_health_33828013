@@ -3,20 +3,17 @@ const router = express.Router();
 const pool = require('../config/db');
 const { ensureLoggedIn } = require('./middleware');
 
-// goals list  ✅ FIXED
+// goals list
 router.get('/', ensureLoggedIn, async (req, res) => {
-  try {
-    const [rows] = await pool.query(
-      "SELECT * FROM goals WHERE user_id = ? ORDER BY created_at DESC",
-      [req.session.user.id]
-    );
+  const [rows] = await pool.query(
+    "SELECT * FROM goals WHERE user_id = ? ORDER BY created_at DESC",
+    [req.session.user.id]
+  );
 
-    res.render('goals_list', { title: "My Goals", goals: rows });
-  } catch (err) {
-    console.error(err);
-    req.session.flash = { type: "error", message: "Unable to load goals." };
-    res.redirect('/usr/398');
-  }
+  res.render('goals_list', {
+    title: "My Goals",
+    goals: rows
+  });
 });
 
 // add goal form
@@ -28,24 +25,13 @@ router.get('/add', ensureLoggedIn, (req, res) => {
 router.post('/add', ensureLoggedIn, async (req, res) => {
   const { title, target_value, unit, period } = req.body;
 
-  if (!title || !target_value || !unit || !period) {
-    req.session.flash = { type: "error", message: "Please complete all fields." };
-    return res.redirect('/usr/398/goals/add');
-  }
+  await pool.query(
+    "INSERT INTO goals (user_id, title, target_value, unit, period) VALUES (?, ?, ?, ?, ?)",
+    [req.session.user.id, title, target_value, unit, period]
+  );
 
-  try {
-    await pool.query(
-      "INSERT INTO goals (user_id, title, target_value, unit, period) VALUES (?, ?, ?, ?, ?)",
-      [req.session.user.id, title, target_value, unit, period]
-    );
-
-    req.session.flash = { type: "success", message: "Goal added successfully!" };
-    res.redirect('/usr/398/goals');
-  } catch (err) {
-    console.error(err);
-    req.session.flash = { type: "error", message: "Error saving goal." };
-    res.redirect('/usr/398/goals/add');
-  }
+  res.redirect('/usr/398/goals');
 });
 
 module.exports = router;
+
