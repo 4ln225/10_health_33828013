@@ -5,8 +5,8 @@ const pool = require('../config/db');
 const router = express.Router();
 
 // Login form
-router.get('login', (req, res) => {
-  res.render('login', { title: "Login" });
+router.get('/login', (req, res) => {
+  res.render('/login', { title: "Login" });
 });
 
 // Login submit
@@ -20,7 +20,7 @@ router.post('login', async (req, res) => {
 
   if (rows.length === 0) {
     req.session.flash = { type: 'error', message: 'Invalid username or password.' };
-    return res.redirect('login');
+    return res.redirect('/usr/398/login');
   }
 
   const user = rows[0];
@@ -28,7 +28,7 @@ router.post('login', async (req, res) => {
 
   if (!match) {
     req.session.flash = { type: 'error', message: 'Invalid username or password.' };
-    return res.redirect('login');
+    return res.redirect('/login');
   }
 
   req.session.user = { id: user.id, username: user.username };
@@ -36,12 +36,12 @@ router.post('login', async (req, res) => {
 });
 
 // Register form
-router.get('register', (req, res) => {
-  res.render('register', { title: "Register" });
+router.get('/register', (req, res) => {
+  res.render('/register', { title: "Register" });
 });
 
 // Register submit
-router.post('register', async (req, res) => {
+router.post('/register', async (req, res) => {
   const { username, password } = req.body;
   const hash = await bcrypt.hash(password, 10);
 
@@ -52,17 +52,17 @@ router.post('register', async (req, res) => {
     );
 
     req.session.flash = { type: 'success', message: 'Account created. Please log in.' };
-    res.redirect('login');
+    res.redirect('/usr/398/login');
   } catch {
     req.session.flash = { type: 'error', message: 'Username already exists.' };
-    res.redirect('register');
+    res.redirect('/usr/398/register');
   }
 });
 
 // Logout
-router.get('logout', (req, res) => {
+router.get('/logout', (req, res) => {
   req.session.destroy(() => {
-    res.redirect('login');
+    res.redirect('/usr/398/login');
   });
 });
 
