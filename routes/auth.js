@@ -4,10 +4,6 @@ const pool = require('../config/db');
 
 const router = express.Router();
 
-/* =====================
-   LOGIN
-===================== */
-
 router.get('/login', (req, res) => {
   res.render('login', { title: 'Login' });
 });
@@ -21,10 +17,7 @@ router.post('/login', async (req, res) => {
   );
 
   if (rows.length === 0) {
-    req.session.flash = {
-      type: 'error',
-      message: 'Invalid username or password.'
-    };
+    req.session.flash = { type: 'error', message: 'Invalid username or password.' };
     return res.redirect('/usr/398/login');
   }
 
@@ -32,24 +25,13 @@ router.post('/login', async (req, res) => {
   const match = await bcrypt.compare(password, user.password_hash);
 
   if (!match) {
-    req.session.flash = {
-      type: 'error',
-      message: 'Invalid username or password.'
-    };
+    req.session.flash = { type: 'error', message: 'Invalid username or password.' };
     return res.redirect('/usr/398/login');
   }
 
-  req.session.user = {
-    id: user.id,
-    username: user.username
-  };
-
+  req.session.user = { id: user.id, username: user.username };
   res.redirect('/usr/398/workouts');
 });
-
-/* =====================
-   REGISTER
-===================== */
 
 router.get('/register', (req, res) => {
   res.render('register', { title: 'Register' });
@@ -65,24 +47,13 @@ router.post('/register', async (req, res) => {
       [username, hash]
     );
 
-    req.session.flash = {
-      type: 'success',
-      message: 'Account created. Please log in.'
-    };
-
+    req.session.flash = { type: 'success', message: 'Account created. Please log in.' };
     res.redirect('/usr/398/login');
   } catch (err) {
-    req.session.flash = {
-      type: 'error',
-      message: 'Username already exists.'
-    };
+    req.session.flash = { type: 'error', message: 'Username already exists.' };
     res.redirect('/usr/398/register');
   }
 });
-
-/* =====================
-   LOGOUT
-===================== */
 
 router.get('/logout', (req, res) => {
   req.session.destroy(() => {
@@ -91,5 +62,6 @@ router.get('/logout', (req, res) => {
 });
 
 module.exports = router;
+
 
 
