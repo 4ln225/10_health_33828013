@@ -4,6 +4,10 @@ https://doc.gold.ac.uk/usr/398/about
 
 https://doc.gold.ac.uk/usr/398/workouts
 
+https://doc.gold.ac.uk/usr/398/workouts/search
+https://doc.gold.ac.uk/usr/398/workouts/edit/2
+
+
 https://doc.gold.ac.uk/usr/398/login (username :gold, password: smiths)
 
 https://doc.gold.ac.uk/usr/398/register
