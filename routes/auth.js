@@ -53,7 +53,6 @@ router.post('/register', async (req, res) => {
 
     req.session.flash = { type: 'success', message: 'Account created. Please log in.' };
     res.redirect('/usr/398/login');
-
   } catch {
     req.session.flash = { type: 'error', message: 'Username already exists.' };
     res.redirect('/usr/398/register');
