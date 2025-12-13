@@ -4,7 +4,7 @@ const pool = require('../config/db');
 const { ensureLoggedIn } = require('./middleware');
 
 // goals list
-router.get('/', ensureLoggedIn, async (req, res) => {
+router.get('/goals', ensureLoggedIn, async (req, res) => {
   try {
     const [rows] = await pool.query(
       "SELECT * FROM goals WHERE user_id = ? ORDER BY created_at DESC",
