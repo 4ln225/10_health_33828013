@@ -29,28 +29,37 @@
 
 <hr>
 
-<a href="workouts/add" class="btn">Add New Workout</a>
+<a href="/usr/398/workouts/add" class="btn">Add New Workout</a>
 
 <table class="workout-table">
-<tr>
-  <th>Date</th><th>Type</th><th>Duration</th><th>Intensity</th><th>Notes</th><th>Actions</th>
-</tr>
+  <tr>
+    <th>Date</th>
+    <th>Type</th>
+    <th>Duration</th>
+    <th>Intensity</th>
+    <th>Notes</th>
+    <th>Actions</th>
+  </tr>
 
-<% workouts.forEach(w => { %>
-<tr>
-  <td><%= w.workout_date.toISOString().split('T')[0] %></td>
-  <td><%= w.workout_type %></td>
-  <td><%= w.duration_minutes %> mins</td>
-  <td><%= w.intensity %></td>
-  <td><%= w.notes || '—' %></td>
-  <td>
-    <a href="workouts/edit/<%= w.id %>">Edit</a>
-    <form action="workouts/delete/<%= w.id %>" method="POST" style="display:inline;">
-      <button type="submit">Delete</button>
-    </form>
-  </td>
-</tr>
-<% }) %>
+  <% workouts.forEach(w => { %>
+    <tr>
+      <td><%= w.workout_date.toISOString().split('T')[0] %></td>
+      <td><%= w.workout_type %></td>
+      <td><%= w.duration_minutes %> mins</td>
+      <td><%= w.intensity %></td>
+      <td><%= w.notes || '—' %></td>
+      <td>
+        <a href="/usr/398/workouts/edit/<%= w.id %>">Edit</a>
+        <form
+          action="/usr/398/workouts/delete/<%= w.id %>"
+          method="POST"
+          style="display:inline;"
+        >
+          <button type="submit">Delete</button>
+        </form>
+      </td>
+    </tr>
+  <% }) %>
 </table>
 
 <%- include('partials/footer') %>
