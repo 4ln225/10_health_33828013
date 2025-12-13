@@ -34,10 +34,11 @@ app.use((req, res, next) => {
 app.set('view engine', 'ejs');
 
 //routes
-app.use('/usr/398', mainRoutes);
-app.use('/usr/398', authRoutes);
-app.use('/usr/398/workouts', workoutRoutes);
-app.use('/usr/398/goals', goalRoutes);
+app.use('/', mainRoutes);
+app.use('/', authRoutes);
+app.use('/workouts', workoutRoutes);
+app.use('/goals', goalRoutes);
+
 
 // 404
 app.use((req, res) => {
