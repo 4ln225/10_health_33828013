@@ -1,0 +1,1 @@
+Hello this is my fitness tracker app (pulse pro), you can access all links through the links.txt file (added thus time) and also check the read me. The user login is "gold" and the pass is "smiths" so you can login easily and check my features. All addiotoal features will be mentioned in the report.
