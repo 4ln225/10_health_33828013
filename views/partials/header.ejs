@@ -1,29 +1,29 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title><%= title %> | PulsePro</title>
-  <link rel="stylesheet" href="/usr/398/css/styles.css">
-</head>
-<body>
+<%- include('partials/header') %>
 
-<header>
-  <h1>PulsePro</h1>
+<h2>Login</h2>
 
-  <nav>
-    <a href="/usr/398/">Home</a>
-    <a href="/usr/398/about">About</a>
+<% if (flash) { %>
+  <div class="flash <%= flash.type %>">
+    <%= flash.message %>
+  </div>
+<% } %>
 
-    <% if (!currentUser) { %>
-      <a href="/usr/398/login">Login</a>
-      <a href="/usr/398/register">Register</a>
-    <% } else { %>
-      <a href="/usr/398/workouts">My Workouts</a>
-      <a href="/usr/398/goals">Goals</a>
-      <a href="/usr/398/logout">Logout</a>
-    <% } %>
-  </nav>
-</header>
+<form action="/usr/398/login" method="POST" class="form">
+  <label>Username</label>
+  <input type="text" name="username" required>
 
-<main>
+  <label>Password</label>
+  <input type="password" name="password" required>
+
+  <button type="submit" class="btn">Login</button>
+</form>
+
+<p>
+  Don’t have an account?
+  <a href="/usr/398/register">Register</a>
+</p>
+
+<%- include('partials/footer') %>
+
 
 
