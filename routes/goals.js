@@ -3,8 +3,8 @@ const router = express.Router();
 const pool = require('../config/db');
 const { ensureLoggedIn } = require('./middleware');
 
-// goals list
-router.get('/goals', ensureLoggedIn, async (req, res) => {
+// goals list  ✅ FIXED
+router.get('/', ensureLoggedIn, async (req, res) => {
   try {
     const [rows] = await pool.query(
       "SELECT * FROM goals WHERE user_id = ? ORDER BY created_at DESC",
@@ -15,11 +15,11 @@ router.get('/goals', ensureLoggedIn, async (req, res) => {
   } catch (err) {
     console.error(err);
     req.session.flash = { type: "error", message: "Unable to load goals." };
-    res.redirect('/');
+    res.redirect('/usr/398');
   }
 });
 
-// add goal
+// add goal form
 router.get('/add', ensureLoggedIn, (req, res) => {
   res.render('goals_add', { title: "Add Goal" });
 });
@@ -30,7 +30,7 @@ router.post('/add', ensureLoggedIn, async (req, res) => {
 
   if (!title || !target_value || !unit || !period) {
     req.session.flash = { type: "error", message: "Please complete all fields." };
-    return res.redirect('/goals/add');
+    return res.redirect('/usr/398/goals/add');
   }
 
   try {
@@ -40,11 +40,11 @@ router.post('/add', ensureLoggedIn, async (req, res) => {
     );
 
     req.session.flash = { type: "success", message: "Goal added successfully!" };
-    res.redirect('/goals');
+    res.redirect('/usr/398/goals');
   } catch (err) {
     console.error(err);
     req.session.flash = { type: "error", message: "Error saving goal." };
-    res.redirect('/goals/add');
+    res.redirect('/usr/398/goals/add');
   }
 });
 
