@@ -11,7 +11,9 @@ const app = express();
 
 
 app.use(express.urlencoded({ extended: false }));
+app.use('/usr/398', express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 // aessions
 app.use(session({
