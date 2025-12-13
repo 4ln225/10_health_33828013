@@ -6,7 +6,7 @@
   <p style="color:red;"><%= flash.message %></p>
 <% } %>
 
-<form action="login" method="POST">
+<form action="/usr/398/login" method="POST">
   <label>Username</label>
   <input type="text" name="username" required>
 
@@ -16,7 +16,11 @@
   <button type="submit">Login</button>
 </form>
 
-<p>Don't have an account? <a href="register">Register</a></p>
+<p>
+  Don't have an account?
+  <a href="/usr/398/register">Register</a>
+</p>
 
 <%- include('partials/footer') %>
+
 
