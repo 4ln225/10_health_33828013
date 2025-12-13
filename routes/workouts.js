@@ -86,7 +86,7 @@ router.post('/delete/:id', ensureLoggedIn, async (req, res) => {
 
 // SEARCH WORKOUTS
 router.post('/search', ensureLoggedIn, async (req, res) => {
-  const { keyword, workout_type, start_date, end_date } = req.body;
+  const { keyword, workout_type} = req.body;
 
   let sql = "SELECT * FROM workouts WHERE user_id = ?";
   let params = [req.session.user.id];
@@ -101,15 +101,7 @@ router.post('/search', ensureLoggedIn, async (req, res) => {
     params.push(workout_type);
   }
 
-  if (start_date) {
-    sql += " AND workout_date >= ?";
-    params.push(start_date);
-  }
 
-  if (end_date) {
-    sql += " AND workout_date <= ?";
-    params.push(end_date);
-  }
 
   const [results] = await pool.query(sql, params);
 
