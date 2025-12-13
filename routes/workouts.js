@@ -84,6 +84,42 @@ router.post('/delete/:id', ensureLoggedIn, async (req, res) => {
   res.redirect('../..');
 });
 
+// SEARCH WORKOUTS
+router.post('/search', ensureLoggedIn, async (req, res) => {
+  const { keyword, workout_type, start_date, end_date } = req.body;
+
+  let sql = "SELECT * FROM workouts WHERE user_id = ?";
+  let params = [req.session.user.id];
+
+  if (keyword) {
+    sql += " AND notes LIKE ?";
+    params.push(`%${keyword}%`);
+  }
+
+  if (workout_type && workout_type !== "any") {
+    sql += " AND workout_type = ?";
+    params.push(workout_type);
+  }
+
+  if (start_date) {
+    sql += " AND workout_date >= ?";
+    params.push(start_date);
+  }
+
+  if (end_date) {
+    sql += " AND workout_date <= ?";
+    params.push(end_date);
+  }
+
+  const [results] = await pool.query(sql, params);
+
+  res.render('workouts_search', {
+    title: "Search Results",
+    results
+  });
+});
+
+
 module.exports = router;
 
 
