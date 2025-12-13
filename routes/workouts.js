@@ -4,7 +4,7 @@ const { ensureLoggedIn } = require('./middleware');
 
 const router = express.Router();
 
-// LIST + CHART
+// lsit chrt
 router.get('/', ensureLoggedIn, async (req, res) => {
   const userId = req.session.user.id;
 
@@ -26,12 +26,11 @@ router.get('/', ensureLoggedIn, async (req, res) => {
   });
 });
 
-// ADD FORM
+
 router.get('/add', ensureLoggedIn, (req, res) => {
   res.render('workouts_add', { title: "Add Workout" });
 });
 
-// ADD SUBMIT
 router.post('/add', ensureLoggedIn, async (req, res) => {
   const { workout_date, workout_type, duration_minutes, intensity, notes } = req.body;
 
@@ -41,11 +40,11 @@ router.post('/add', ensureLoggedIn, async (req, res) => {
     [req.session.user.id, workout_date, workout_type, duration_minutes, intensity, notes || null]
   );
 
-  // ✅ RELATIVE redirect
+
   res.redirect('..');
 });
 
-// EDIT FORM
+//edit
 router.get('/edit/:id', ensureLoggedIn, async (req, res) => {
   const [rows] = await pool.query(
     "SELECT * FROM workouts WHERE id = ? AND user_id = ?",
@@ -58,7 +57,7 @@ router.get('/edit/:id', ensureLoggedIn, async (req, res) => {
   });
 });
 
-// EDIT SUBMIT
+
 router.post('/edit/:id', ensureLoggedIn, async (req, res) => {
   const { workout_date, workout_type, duration_minutes, intensity, notes } = req.body;
 
@@ -69,22 +68,22 @@ router.post('/edit/:id', ensureLoggedIn, async (req, res) => {
     [workout_date, workout_type, duration_minutes, intensity, notes, req.params.id, req.session.user.id]
   );
 
-  // ✅ RELATIVE redirect
+
   res.redirect('../..');
 });
 
-// DELETE
+// deleet
 router.post('/delete/:id', ensureLoggedIn, async (req, res) => {
   await pool.query(
     "DELETE FROM workouts WHERE id=? AND user_id=?",
     [req.params.id, req.session.user.id]
   );
 
-  // ✅ RELATIVE redirect
+
   res.redirect('../..');
 });
 
-// SEARCH WORKOUTS
+// saerch
 router.post('/search', ensureLoggedIn, async (req, res) => {
   const { keyword, workout_type} = req.body;
 
