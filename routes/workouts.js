@@ -41,7 +41,8 @@ router.post('/add', ensureLoggedIn, async (req, res) => {
     [req.session.user.id, workout_date, workout_type, duration_minutes, intensity, notes || null]
   );
 
-  res.redirect('/workouts');
+  // ✅ RELATIVE redirect
+  res.redirect('..');
 });
 
 // EDIT FORM
@@ -62,12 +63,14 @@ router.post('/edit/:id', ensureLoggedIn, async (req, res) => {
   const { workout_date, workout_type, duration_minutes, intensity, notes } = req.body;
 
   await pool.query(
-    `UPDATE workouts SET workout_date=?, workout_type=?, duration_minutes=?, intensity=?, notes=?
+    `UPDATE workouts
+     SET workout_date=?, workout_type=?, duration_minutes=?, intensity=?, notes=?
      WHERE id=? AND user_id=?`,
     [workout_date, workout_type, duration_minutes, intensity, notes, req.params.id, req.session.user.id]
   );
 
-  res.redirect('/workouts');
+  // ✅ RELATIVE redirect
+  res.redirect('../..');
 });
 
 // DELETE
@@ -77,7 +80,8 @@ router.post('/delete/:id', ensureLoggedIn, async (req, res) => {
     [req.params.id, req.session.user.id]
   );
 
-  res.redirect('/workouts');
+  // ✅ RELATIVE redirect
+  res.redirect('../..');
 });
 
 module.exports = router;
