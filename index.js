@@ -5,7 +5,7 @@ const path = require('path');
 const authRoutes = require('./routes/auth');
 const mainRoutes = require('./routes/main');
 const workoutRoutes = require('./routes/workouts');
-const goalRoutes = require('./routes/goals');
+
 
 const app = express();
 
@@ -37,7 +37,7 @@ app.set('view engine', 'ejs');
 app.use('/', mainRoutes);
 app.use('/', authRoutes);
 app.use('/workouts', workoutRoutes);
-app.use('/goals', goalRoutes);
+
 
 
 // 404
