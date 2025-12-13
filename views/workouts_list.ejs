@@ -29,7 +29,7 @@
 
 <hr>
 
-<a href="/workouts/add" class="btn">Add New Workout</a>
+<a href="workouts/add" class="btn">Add New Workout</a>
 
 <table class="workout-table">
 <tr>
@@ -44,8 +44,8 @@
   <td><%= w.intensity %></td>
   <td><%= w.notes || '—' %></td>
   <td>
-    <a href="/workouts/edit/<%= w.id %>">Edit</a>
-    <form action="/workouts/delete/<%= w.id %>" method="POST" style="display:inline;">
+    <a href="workouts/edit/<%= w.id %>">Edit</a>
+    <form action="workouts/delete/<%= w.id %>" method="POST" style="display:inline;">
       <button type="submit">Delete</button>
     </form>
   </td>
@@ -54,5 +54,6 @@
 </table>
 
 <%- include('partials/footer') %>
+
 
 
