@@ -5,15 +5,20 @@ const { ensureLoggedIn } = require('./middleware');
 
 // goals list
 router.get('/', ensureLoggedIn, async (req, res) => {
-  const [rows] = await pool.query(
-    "SELECT * FROM goals WHERE user_id = ? ORDER BY created_at DESC",
-    [req.session.user.id]
-  );
+  try {
+    const [rows] = await pool.query(
+      "SELECT * FROM goals WHERE user_id = ? ORDER BY created_at DESC",
+      [req.session.user.id]
+    );
 
-  res.render('goals_list', {
-    title: "My Goals",
-    goals: rows
-  });
+    res.render('goals_list', {
+      title: "My Goals",
+      goals: rows
+    });
+  } catch (err) {
+    console.error("GOALS ERROR:", err);
+    res.status(500).send("Internal Server Error");
+  }
 });
 
 // add goal form
