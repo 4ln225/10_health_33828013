@@ -30,7 +30,7 @@ router.post('/add', ensureLoggedIn, async (req, res) => {
     [req.session.user.id, title, target_value, unit, period]
   );
 
-  res.redirect('/usr/398/goals');
+  res.redirect('/goals');
 });
 
 module.exports = router;
