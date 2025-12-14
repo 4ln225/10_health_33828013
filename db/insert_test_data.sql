@@ -7,7 +7,3 @@ INSERT INTO workouts (user_id, workout_date, workout_type, duration_minutes, int
 (1, '2025-01-08', 'Gym', 45, 'high', 'Chest day in gym'),
 (1, '2025-01-10', 'Yoga', 30, 'low', 'Daily stretches session');
 
--- sample goals 
-INSERT INTO goals (user_id, title, target_value, unit, period) VALUES
-(1, 'Do more stretching yoga to avoid injuries', 4, 'sessions', 'per week'),
-(1, 'Increase running distance', 3, 'kilometres', 'per week');
